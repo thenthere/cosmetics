@@ -2,6 +2,7 @@
   {
     "id": 1,
     "owner": "me",
+    "target_area": "skin",
     "brand": "이안셀 (lancell)",
     "name": "퍼펙트 립 & 아이 메이크업 리무버",
     "category": "포인트 메이크업 전용 리무버",
@@ -21,6 +22,7 @@
   {
     "id": 2,
     "owner": "me",
+    "target_area": "skin",
     "brand": "오스모시스 (Osmosis Beauty)",
     "name": "젠틀 클렌저",
     "category": "클렌저",
@@ -40,6 +42,7 @@
   {
     "id": 3,
     "owner": "me",
+    "target_area": "face",
     "brand": "바이오폭스 (BIOFOX PROFESSIONAL)",
     "name": "텐지에프 리버스에이징 큐어 부스터",
     "category": "기능성 부스터 미스트",
@@ -59,6 +62,7 @@
   {
     "id": 4,
     "owner": "me",
+    "target_area": "face",
     "brand": "바이오폭스 (BIOFOX PROFESSIONAL)",
     "name": "텐지에프 리버스에이징 올인원 세럼",
     "category": "올인원 세럼",
@@ -69,7 +73,7 @@
     "manufacture_date": "별도 표시",
     "expiry_date": "2028년 7월 4일",
     "effects": "예민하고 민감한 피부 진정(애프터케어), 피부 탄력 증진, 윤택한 피부 케어, 외부 환경 자극 완화",
-    "directions": "본 품의 적당량을 취해 피부에 골고루 펴 바릅니다.",
+    "directions": "본 품의 적당량을 취해 피부에 골고루 펴 바른다.",
     "warnings": "1. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것 2. 상처가 있는 부위 등에는 사용을 자제할 것 3. 보관 및 취급 시의 주의사항: 1) 어린이의 손이 닿지 않는 곳에 보관할 것 2) 직사광선을 피해서 보관할 것 4. 외용으로만 사용할 것, 눈에 들어가지 않도록 주의할 것",
     "purchase_date": "2026년 7월 8일",
     "location": "헤세드 스킨베어 분당 판교점",
@@ -78,6 +82,7 @@
   {
     "id": 5,
     "owner": "me",
+    "target_area": "face",
     "brand": "바이더퀄리티 (BYTHEQUALITY)",
     "name": "토코맥스20 안티옥시던트",
     "category": "에스테틱 전용 크림/세럼",
@@ -97,6 +102,7 @@
   {
     "id": 6,
     "owner": "me",
+    "target_area": "skin",
     "brand": "에텔랑 (ETELANC)",
     "name": "센텔라 물 앰플",
     "category": "수분 진정 앰플",
@@ -115,7 +121,8 @@
   },
   {
     "id": 7,
-    "owner": "me",
+    "owner": "common",
+    "target_area": "hair",
     "brand": "트리아 밀리아 (TRIA MILIA)",
     "name": "라쿠스 곱슬 모발 개선 에센스",
     "category": "헤어 에센스",
@@ -134,14 +141,15 @@
   },
   {
     "id": 8,
-    "owner": "me",
+    "owner": "common",
+    "target_area": "hair",
     "brand": "트리아 밀리아 (TRIA MILIA)",
     "name": "푸루스 테라 스칼프 팩",
     "category": "두피 팩 / 트리트먼트",
     "size": "150g",
     "usage": "상세 정보 없음",
     "ingredients_ko": "정제수 / 부틸렌글라이콜 / 글리세린 / 화산재 / 작약뿌리추출물 / 멘톨 / 살리실릭애씨드 / 징크설페이트 등",
-    "ingredients_en": "Water / Butylene Glycol / Glycerin / Volcanic Ash / Paeonia Lactiflora Root Extract / Menthol / Salicylic Acid / Zinc Sulfate etc.",
+    "ingredients_en": "Water / Butylene Glycol / Glycerin / Volcanic Ash / Paeonia Lactiflora Root Extract / Menthel / Salicylic Acid / Zinc Sulfate etc.",
     "manufacture_date": "용기 별도 표기",
     "expiry_date": "2027년 08월 29일",
     "effects": "두피 노폐물 흡착 및 청결 유지 / 두피와 모발에 수분 및 쿨링감 공급",
@@ -154,6 +162,7 @@
   {
     "id": 9,
     "owner": "me",
+    "target_area": "face",
     "brand": "바이오폭스 (BIOFOX)",
     "name": "텐지에프 리버스에이징 큐어 페이셜 마스크",
     "category": "마스크팩",
@@ -173,6 +182,7 @@
   {
     "id": 10,
     "owner": "ninon",
+    "target_area": "face",
     "brand": "3일애 (THREE DAYS LOVE)",
     "name": "펩타이드 이펙터 II",
     "category": "앰플/에센스",
@@ -187,6 +197,6 @@
     "warnings": "1. 화장품을 사용하여 이상이 있는 경우에는 사용을 중지하여야 하며 피부과 전문의 등에게 상담할 것 2. 상처가 있는 부위 등에는 사용을 하지 말 것 3. 보관 및 취급 시 주의사항 준수",
     "purchase_date": "2026년 7월 17일",
     "location": "헤세드 스킨베어 분당 판교점",
-    "price": "66,000원"
+    "price": "70,000원"
   }
 ]
