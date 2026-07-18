@@ -245,9 +245,12 @@
         renderCards();
     }
 
+    // 원본 주소로 안전하게 연동하여 새 창을 여는 매퍼
     function openOriginalImage(imgUrl) {
         if(imgUrl) {
-            window.open(imgUrl, '_blank');
+            // rawusercontent 주소를 사용자 가독성이 좋은 일반 github blob 주소로 변환하여 새 창 오픈
+            let targetUrl = imgUrl.replace('raw.githubusercontent.com', 'github.com').replace('/main/', '/blob/main/');
+            window.open(targetUrl, '_blank');
         }
     }
 
@@ -285,7 +288,6 @@
 
             card.style.borderTopColor = themeColor;
             
-            // 이미지 영역 분기 매핑 구조
             const imageUrl = item.image ? item.image : '';
             const imageSection = imageUrl 
                 ? `<div class="image-container" onclick="openOriginalImage('${imageUrl}')">
