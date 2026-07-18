@@ -90,6 +90,49 @@
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
+        .image-container {
+            width: 100%;
+            height: 240px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid #e2e8f0;
+        }
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            padding: 10px;
+            transition: transform 0.3s;
+        }
+        .image-container:hover img {
+            transform: scale(1.05);
+        }
+        .image-fallback {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .zoom-badge {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.72rem;
+            letter-spacing: 0.5px;
+        }
         .card-header {
             margin-bottom: 15px;
         }
@@ -190,8 +233,8 @@
             database = await response.json();
             renderCards();
         } catch (error) {
-            console.error("데이터베이스 파일 로드 실패", error);
-            document.getElementById('cardGrid').innerHTML = '<p style="text-align:center; width:100%;">cosmetics.json 파일 매핑 오류</p>';
+            console.error("데이터베이스 로드 실패", error);
+            document.getElementById('cardGrid').innerHTML = '<p style="text-align:center; width:100%;">cosmetics.json 로드 오류</p>';
         }
     }
 
@@ -202,17 +245,21 @@
         renderCards();
     }
 
+    function openOriginalImage(imgUrl) {
+        if(imgUrl) {
+            window.open(imgUrl, '_blank');
+        }
+    }
+
     function renderCards() {
         const query = document.getElementById('search').value.toLowerCase();
         const grid = document.getElementById('cardGrid');
         grid.innerHTML = '';
 
         const filtered = database.filter(item => {
-            // 탭 필터링: 'common' 제품은 me/ninon 어느 쪽이든 항상 트루 반환
             if (currentTab !== 'all') {
                 if (item.owner !== 'common' && item.owner !== currentTab) return false;
             }
-            // 검색어 필터링
             return (
                 item.brand.toLowerCase().includes(query) ||
                 item.name.toLowerCase().includes(query) ||
@@ -231,7 +278,6 @@
             const card = document.createElement('div');
             card.className = 'card';
             
-            // 소유 태그 라벨 분기 처리
             let ownerLabel = "공용 (Common)";
             let themeColor = "#34495e";
             if (item.owner === 'me') { ownerLabel = "나 (Me)"; themeColor = "#1abc9c"; }
@@ -239,7 +285,20 @@
 
             card.style.borderTopColor = themeColor;
             
+            // 이미지 영역 분기 매핑 구조
+            const imageUrl = item.image ? item.image : '';
+            const imageSection = imageUrl 
+                ? `<div class="image-container" onclick="openOriginalImage('${imageUrl}')">
+                    <img src="${imageUrl}" alt="${item.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="image-fallback" style="display:none;">🖼️ 이미지 경로 로드 대기 중</div>
+                    <div class="zoom-badge">원본 보기 🔍</div>
+                   </div>`
+                : `<div class="image-container">
+                    <div class="image-fallback">📸 헤어 라인 이미지 업데이트 예정</div>
+                   </div>`;
+
             card.innerHTML = `
+                ${imageSection}
                 <div>
                     <div class="card-header">
                         <span class="brand">${item.brand}</span>
