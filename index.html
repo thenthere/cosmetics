@@ -229,7 +229,6 @@
 
     async function loadDatabase() {
         try {
-            // 캐시 방지를 위해 타임스탬프를 덧붙여 json을 강제 신규 로드합니다.
             const response = await fetch('cosmetics.json?v=' + new Date().getTime());
             database = await response.json();
             renderCards();
@@ -262,19 +261,16 @@
         grid.innerHTML = '';
 
         const filtered = database.filter(item => {
-            // 1. 탭 소유자 필터링 (common 조건 포함)
             if (currentTab !== 'all') {
                 if (item.owner !== 'common' && item.owner !== currentTab) return false;
             }
             
-            // 2. 검색어 와일드카드 필터링 (국문/영문 다중 매핑 조건 강화)
             const brand = (item.brand || '').toLowerCase();
             const name = (item.name || '').toLowerCase();
             const category = (item.category || '').toLowerCase();
             const area = (item.target_area || '').toLowerCase();
             const effects = (item.effects || '').toLowerCase();
             const ingKo = (item.ingredients_ko || '').toLowerCase();
-            const ingEn = (item.ingredients_en || '').toLowerCase();
 
             return (
                 brand.includes(query) ||
@@ -282,8 +278,7 @@
                 category.includes(query) ||
                 area.includes(query) ||
                 effects.includes(query) ||
-                ingKo.includes(query) ||
-                ingEn.includes(query)
+                ingKo.includes(query)
             );
         });
 
