@@ -195,6 +195,13 @@
             font-size: 0.85rem;
             color: #95a5a6;
             line-height: 1.4;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-radius: 6px;
+            padding: 10px;
+        }
+        .footer-info:hover {
+            background-color: #f1f5f9;
         }
         .price {
             font-size: 1.1rem;
@@ -202,6 +209,57 @@
             color: var(--primary);
             white-space: nowrap;
         }
+        .history-btn {
+            font-size: 0.75rem;
+            color: #1abc9c;
+            font-weight: bold;
+            text-decoration: underline;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* Modal Style */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .modal-header {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--primary);
+            border-bottom: 2px solid #f1f1f1;
+            padding-bottom: 10px;
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px; right: 15px;
+            border: none; background: none;
+            font-size: 1.5rem; cursor: pointer; color: #888;
+        }
+        .history-item {
+            padding: 12px;
+            border-bottom: 1px solid #edf2f7;
+            font-size: 0.9rem;
+        }
+        .history-item:last-child { border-bottom: none; }
+        .history-date { font-weight: bold; color: var(--accent); }
     </style>
 </head>
 <body>
@@ -221,6 +279,15 @@
     <input type="text" id="search" class="search-bar" placeholder="브랜드, 제품명, 사용 부위 등으로 검색...">
 
     <div class="grid" id="cardGrid"></div>
+</div>
+
+<!-- Modal Container -->
+<div class="modal-overlay" id="historyModal">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+        <div class="modal-header" id="modalTitle">구매 이력</div>
+        <div id="modalBody"></div>
+    </div>
 </div>
 
 <script>
@@ -255,6 +322,35 @@
         }
     }
 
+    function openHistoryModal(productId) {
+        const item = database.find(p => p.id === productId);
+        if(!item || !item.purchase_history) return;
+
+        document.getElementById('modalTitle').innerText = `${item.brand} - ${item.name} (구매 이력)`;
+        
+        let historyHtml = '';
+        // 최신순 정렬
+        const sortedHistory = [...item.purchase_history].reverse();
+        
+        sortedHistory.forEach((h, index) => {
+            historyHtml += `
+                <div class="history-item">
+                    <div class="history-date">📅 구매일: ${h.purchase_date} ${index === 0 ? ' (최신)' : ''}</div>
+                    <div>📍 구매장소: ${h.location}</div>
+                    <div>💰 구매가격: ${h.price}</div>
+                    <div>⏳ 사용기한: ${h.expiry_date || '별도표기'}</div>
+                </div>
+            `;
+        });
+
+        document.getElementById('modalBody').innerHTML = historyHtml;
+        document.getElementById('historyModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('historyModal').style.display = 'none';
+    }
+
     function renderCards() {
         const query = document.getElementById('search').value.toLowerCase().trim();
         const grid = document.getElementById('cardGrid');
@@ -269,16 +365,12 @@
             const name = (item.name || '').toLowerCase();
             const category = (item.category || '').toLowerCase();
             const area = (item.target_area || '').toLowerCase();
-            const effects = (item.effects || '').toLowerCase();
-            const ingKo = (item.ingredients_ko || '').toLowerCase();
 
             return (
                 brand.includes(query) ||
                 name.includes(query) ||
                 category.includes(query) ||
-                area.includes(query) ||
-                effects.includes(query) ||
-                ingKo.includes(query)
+                area.includes(query)
             );
         });
 
@@ -298,6 +390,10 @@
 
             card.style.borderTopColor = themeColor;
             
+            // 최신 구매 이력 추출
+            const history = item.purchase_history || [];
+            const latest = history.length > 0 ? history[history.length - 1] : { purchase_date: 'unknown', location: 'unknown', price: 'unknown', expiry_date: '별도표기' };
+
             const imageUrl = item.image ? item.image : '';
             const imageSection = imageUrl 
                 ? `<div class="image-container" onclick="openOriginalImage('${imageUrl}')">
@@ -322,22 +418,31 @@
                     </div>
                     <div class="info-row"><span class="info-label">분류:</span> ${item.category}</div>
                     <div class="info-row"><span class="info-label">용량:</span> ${item.size}</div>
-                    <div class="info-row"><span class="info-label">사용기한:</span> ${item.expiry_date}</div>
+                    <div class="info-row"><span class="info-label">최신 사용기한:</span> ${latest.expiry_date || '별도표기'}</div>
                     <div class="info-row"><span class="info-label">주요 효능:</span> ${item.effects}</div>
                     <div class="ingredients-box">
                         <strong>전성분:</strong><br>${item.ingredients_ko}
                     </div>
                 </div>
-                <div class="footer-info">
+                <div class="footer-info" onclick="openHistoryModal(${item.id})">
                     <div>
-                        <span>구매: ${item.purchase_date}</span><br>
-                        <span>장소: ${item.location}</span>
+                        <span>구매: ${latest.purchase_date}</span><br>
+                        <span>장소: ${latest.location}</span>
+                        <span class="history-btn">📜 구매 이력 (${history.length}건)</span>
                     </div>
-                    <span class="price">${item.price}</span>
+                    <span class="price">${latest.price}</span>
                 </div>
             `;
             grid.appendChild(card);
         });
+    }
+
+    // 모달 외각 클릭 시 닫기
+    window.onclick = function(event) {
+        const modal = document.getElementById('historyModal');
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
     }
 
     document.getElementById('search').addEventListener('input', renderCards);
