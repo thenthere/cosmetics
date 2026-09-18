@@ -316,5 +316,30 @@
         "expiry_date": "2028년 12월 10일"
       }
     ]
+  },
+  {
+    "id": 13,
+    "owner": "common",
+    "target_area": "face",
+    "brand": "리빌 (reveel / 매트리콜)",
+    "name": "리빌 매트리콜 콜라겐 세럼",
+    "category": "콜라겐 미스트/세럼",
+    "image": "images/15_reveel_Booster-Collagen-Serum-Spray.webp",
+    "size": "100ml",
+    "usage": "사용 전 충분히 흔들어 얼굴에 분사",
+    "ingredients_ko": "정제수, 부틸렌글라이콜, 글리세린, 류코노스톡/무발효여과물, 수용성콜라겐(0.4%), 모노소듐시트레이트, 판테놀, 피씨에이, 사카라이드아이소머레이트, 아이소말트, 1,5-펜탄다이올, 향료, 사과세포배양추출물",
+    "ingredients_en": "AQUA (WATER), BUTYLENE GLYCOL, GLYCERIN, LEUCONOSTOC/RADISH ROOT FERMENT FILTRATE, SOLUBLE COLLAGEN, MALUS DOMESTICA FRUIT CELL CULTURE EXTRACT, PANTHENOL, PCA, 1,5-PENTANEDIOL, SACCHARIDE ISOMERATE, MONOSODIUM CITRATE, ISOMALT, PARFUM (FRAGRANCE)",
+    "manufacture_date": "별도 표기",
+    "effects": "천연 콜라겐, NMF, 사과 줄기세포 추출물을 통한 즉각적인 집중 수분 공급, 피부결 정돈 및 플럼핑 탄력 효과",
+    "directions": "사용 전 잘 흔들어 줍니다. 얼굴에 고르게 분사한 후 두드려 흡수시킵니다. (25°C 이하 실온 보관)",
+    "warnings": "1. 직사광선에 의한 부작용 시 전문의 상담 2. 상처 부위 사용 자제 3. 어린이 손 안 닿는 곳 보관 4. 직사광선 피하고 실온(25°C 이하) 보관",
+    "purchase_history": [
+      {
+        "purchase_date": "2026년 9월 12일",
+        "location": "헤세드스킨케어",
+        "price": "250,000원",
+        "expiry_date": "2027년 08월"
+      }
+    ]
   }
 ]
