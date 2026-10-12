@@ -329,7 +329,6 @@
         document.getElementById('modalTitle').innerText = `${item.brand} - ${item.name} (구매 이력)`;
         
         let historyHtml = '';
-        // 최신순 정렬
         const sortedHistory = [...item.purchase_history].reverse();
         
         sortedHistory.forEach((h, index) => {
@@ -390,7 +389,6 @@
 
             card.style.borderTopColor = themeColor;
             
-            // 최신 구매 이력 추출
             const history = item.purchase_history || [];
             const latest = history.length > 0 ? history[history.length - 1] : { purchase_date: 'unknown', location: 'unknown', price: 'unknown', expiry_date: '별도표기' };
 
@@ -437,7 +435,6 @@
         });
     }
 
-    // 모달 외각 클릭 시 닫기
     window.onclick = function(event) {
         const modal = document.getElementById('historyModal');
         if (event.target === modal) {
