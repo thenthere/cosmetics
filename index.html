@@ -260,6 +260,12 @@
         }
         .history-item:last-child { border-bottom: none; }
         .history-date { font-weight: bold; color: var(--accent); }
+        .history-memo {
+            margin-top: 4px;
+            font-size: 0.8rem;
+            color: #e67e22;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -332,12 +338,14 @@
         const sortedHistory = [...item.purchase_history].reverse();
         
         sortedHistory.forEach((h, index) => {
+            const memoHtml = h.memo ? `<div class="history-memo">📝 메모: ${h.memo}</div>` : '';
             historyHtml += `
                 <div class="history-item">
                     <div class="history-date">📅 구매일: ${h.purchase_date} ${index === 0 ? ' (최신)' : ''}</div>
                     <div>📍 구매장소: ${h.location}</div>
                     <div>💰 구매가격: ${h.price}</div>
                     <div>⏳ 사용기한: ${h.expiry_date || '별도표기'}</div>
+                    ${memoHtml}
                 </div>
             `;
         });
